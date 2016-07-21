@@ -1,0 +1,341 @@
+	if(preg_match('/(^div)$/',$eachNode->nodeName)){
+		 		 	$this->blocksProcess($section,$eachNode);
+		 		}elseif(preg_match('/(^p)$/',$eachNode->nodeName)){
+		 			$this->paragraphProcess($section,$eachNode,'','section');
+		 		}else{
+		 			$section->addText(htmlspecialchars($eachNode->nodeValue),$style);
+		 			//echo $this->dom->saveHtml($eachNode);
+		 		}
+		 		
+				
+	/*if($nodeChildes->length>1){
+		 			if(preg_match('/(^div)$/',$eachNode->nodeName)){
+		 				$this->blocksProcess($section,$eachNode);//call table process
+		 				continue;
+		 			}
+		 			
+		 			$this->getChildNodes($section,$eachNode);
+		 		}else{
+		 			if($eachNode->nodeType=='3'){
+		 				$section->addText(htmlspecialchars($eachNode->nodeValue),$style);
+		 				continue;
+		 			} 
+		 			
+	 				foreach($nodeChildes as $nodeChild){ 
+	 					$section->addText(htmlspecialchars($nodeChild->nodeValue),$style); 
+	 					$this->getChildNodes($section,$nodeChild); 
+	 				}  
+		 		}*/
+				
+private function paragraphProcess($section,$node,$textrun,$base){
+		if($base != 'textrun'){
+			$textrun=$section->createTextRun();
+			$writeBase=$section;
+		}else{
+			$writeBase=$textrun;
+		}
+		
+		if($node->hasChildNodes()){ 
+			$writeBase=$textrun;
+			
+			foreach($node->childNodes as $nodeChild){
+			
+				if($nodeChild->childNodes->length>1){ 
+					$this->paragraphProcess($section,$nodeChild,$textrun,'textrun');
+					continue;
+				}
+				echo $this->dom->saveHtml($nodeChild);
+				if(preg_match('/(^br)$/',$nodeChild->nodeName)){
+					$writeBase->addTextBreak(1);
+					continue;
+				}
+				
+				$style=$this->getStyles($nodeChild->nodeName);
+				$writeBase->addText(htmlspecialchars($nodeChild->nodeValue),$style);
+			}
+		}else{
+			if(preg_match('/(^br)$/',$node->nodeName)){
+				$writeBase->addTextBreak(1);
+				continue;
+			}
+			$writeBase->addText(htmlspecialchars($node->nodeValue),$style);
+		}
+	}
+	
+ 
+	private function blocksProcess($section,$node){ 
+		$divChilds=$this->xpath->query('./*',$node);
+		
+		
+		foreach($divChilds as $div){  
+			if(preg_match('/(^h(\d+))$/',$div->nodeName)){
+				$section->addText(htmlspecialchars($div->nodeValue),$style);
+			}elseif(preg_match('/(^p)$/',$div->nodeName)){
+				$this->paragraphProcess($section,$div,'','section');
+			}elseif(preg_match('/(^div)$/',$div->nodeName)){
+				$this->blocksProcess($section,$div);
+			} 
+			
+			if(preg_match('/(^img)$/',$div->nodeName)){ 
+				$src =$div->getAttribute('src');
+				$imgStyle=array('width' => '500','wrappingStyle' => 'behind');
+				//$section->addImage($src,$imgStyle);
+				continue;
+			}		 
+		}
+	}
+	
+	private function getChildNodes($section,$node){
+		$textrun = $section->createTextRun();
+			
+		if($node->nodeType=='1' && preg_match('/jrnlRefText/',$node->getAttribute('class'))){
+			$rID=$node->getAttribute('id');
+			$textrun->addBookmark($rID);//Bookmarked each reference
+		}
+	
+		if($node->nodeType=='1' && preg_match('/jrnl(\w+)Caption/',$node->getAttribute('class'))){
+			if($node->hasAttribute('id')){
+				$rID=$node->getAttribute('id');
+				$textrun->addBookmark($rID);//Bookmarked each reference
+			}
+		}
+			
+		if($node->nodeType=='1' && preg_match('/jrnl(\w+)Ref/',$node->getAttribute('class'))){
+			$linkIsInternal = true;
+			$refId=trim($node->getAttribute('data-citation-string'));
+			$checkRefId=$this->xpath->query('//*[@id="'.$refId.'"]');
+			if($checkRefId->length>0){
+				$textrun->addLink($refId, htmlspecialchars($node->nodeValue), null, null, $linkIsInternal);//set Link Here
+			}
+		}
+	
+		if($node->nodeType=='1' && preg_match('/(^ol|^ul)$/',$node->nodeName)){
+			//list process
+			$this->listItemsProcess($section,$node,'0');
+		}
+	
+		foreach($node->childNodes as $nodeChild){
+			$change='';
+			$nodeName = strtolower($nodeChild->nodeName);//get Name of node
+			//echo $this->dom->saveHTML($nodeChild);
+				
+			if($nodeChild->nodeType=='1'){
+				if(preg_match('/jrnl(\w+)Ref/',$nodeChild->getAttribute('class'))){
+					$linkIsInternal = true;
+					$refId=trim($nodeChild->getAttribute('data-citation-string'));
+					$checkRefId=$this->xpath->query('//*[@id="'.$refId.'"]');
+					if($checkRefId->length>0){
+						$textrun->addLink($refId, htmlspecialchars($nodeChild->nodeValue), null, null, $linkIsInternal);//set Link Here
+						continue;
+					}
+				}
+	
+				if(preg_match('/h(\d)/',$nodeName)){
+					if($nodeChild->childNodes->length==1){
+						$section->addText(htmlspecialchars($nodeChild->nodeValue),'hStyle');
+						continue;
+					}
+				}
+	
+				if(preg_match('/^li$/',$nodeName)){
+					continue;
+				}
+	
+				if(preg_match('/authorQueryNode/',$nodeChild->getAttribute('class'))){
+					$this->setQuery($nodeChild,$textrun);
+					continue;
+				}
+	
+				if(preg_match('/^del\s/',$nodeChild->getAttribute('class'))){
+					$date=$nodeChild->getAttribute('data-time');
+					$author=$nodeChild->getAttribute('data-username');
+					$source=$nodeChild->nodeValue;
+					$change='delete';
+				}
+	
+				if(preg_match('/^ins\s/',$nodeChild->getAttribute('class'))){
+					$date=$nodeChild->getAttribute('data-time');
+					$author=$nodeChild->getAttribute('data-username');
+					$source=$nodeChild->nodeValue;
+					$change='insert';
+				}
+					
+				if($change!=''){
+					$textrun->addRevision($source,$change,$author,$date,'pStyle');
+					continue;
+				}
+			}
+	
+			if($nodeChild->childNodes->length>1){
+				$this->getChildNodes($section,$nodeChild,$style);
+			}else{
+				if(preg_match('/(^table)$/',$nodeName)){
+					$this->tableProcess($section,$nodeChild);//call table process
+					$section->addTextBreak(1);
+					break;
+				}
+	
+				//check element names
+				$setStyle= $this->getStyles($nodeName);
+				$textrun->addText(htmlspecialchars($nodeChild->nodeValue),$setStyle);
+			}
+		}
+	}
+	
+	private function tableProcess($section,$tableHtml){  
+		$rows = 10;
+		$cols = 5;
+		$extraRows=$this->xpath->query(".//*[@class][ php:functionString('preg_match', '/headerRow|leftHeader/i', ./@class) > 0 ]",$tableHtml); 
+		foreach($extraRows as $row){
+			$row->parentNode->removeChild($row);
+		}
+		
+		//Table Styles
+		$styleTable = array('borderSize' => 6, 'borderColor' => '006699', 'cellMargin' => 80);
+		$styleFirstRow = array('borderBottomSize' => 18, 'borderBottomColor' => '0000FF', 'bgColor' => '66BBFF','tblHeader'=>true);
+		$styleCell = array('valign' => 'center'); 
+		$fontStyle = array('bold' => true, 'align' => 'center');
+		$this->phpWord->addTableStyle('Modal Table', $styleTable, $styleFirstRow); 
+		$table = $section->addTable('Modal Table');//create table
+		
+		//table process 
+		$tableChilds=$this->xpath->query('.//tr',$tableHtml);  
+		foreach($tableChilds as $tr){ 
+			if(preg_match('/thead/',$tr->parentNode->nodeName)) {
+				$table->addRow(200,array('tblHeader' => true));
+			}else{
+				$table->addRow();
+			} 
+			foreach($tr->childNodes as $td){ 
+				if(preg_match('/td|th/',$td->nodeName)){  
+					if($td->nodeType == '1' && $td->getAttribute('colspan')!=''){ 
+						$colSpanCell=array('valign' => 'center','gridSpan' => $td->getAttribute('colspan'));//set colspan 
+						$cell = $table->addCell(2000, $colSpanCell)->addText(htmlspecialchars($td->nodeValue), $fontStyle); 
+					}else{
+						$cell = $table->addCell(2000, $styleCell)->addText(htmlspecialchars($td->nodeValue), $fontStyle);
+					}
+				}
+			}
+		} 
+	}
+	
+	private function addTextWithStyle($setTo,$write='textrun',$node,$style){
+		if($write!='textrun'){
+			$setTo = $setTo->createTextRun($style);
+		} 
+		$styleNodes=$this->xpath->query('.//node()',$node);
+		foreach($styleNodes as $styleNode){ 
+			//$setTo->addText(htmlspecialchars($styleNode->nodeValue),$style);
+		}  
+	}
+	
+	private function getStyles($nodeName){
+		//apply styles for specific elements
+		if(preg_match('/(^b)$/',$nodeName)){
+			$style = 'bold'; //set bold style
+		}elseif(preg_match('/(^i)$/',$nodeName)){
+			$style = 'italic'; //set italic style
+		}elseif(preg_match('/(^sub)$/',$nodeName)){
+			$style = 'sub'; //set sub style
+		}elseif(preg_match('/(^sup)$/',$nodeName)){
+			$style = 'sup'; //set sup style
+		}else{
+			$style = 'pStyle';//reset normal para style
+		}
+		return $style;
+	}
+	
+	//list item process
+	private function listItemsProcess($section,$listNodes,$liDepth){
+		//each li add to section
+		foreach($listNodes->childNodes as $listChild){
+			$liChilds=$this->xpath->query('.//ul|.//ol',$listChild);//get sub list
+			$listHtml=$listChild->innerHTML;
+			$liText = strip_tags(preg_replace('/(\<(ul|ol)\>([\s\S]*?)\<\/(ul|ol)\>)/','',$listHtml));
+			$section->addListItem($liText, $liDepth, null, 'multilevel');//add List to section
+			//$section->addListItem($liText, $liDepth, null, 'multilevel');//add List to section
+			
+			if($liChilds->length>0){
+				$prevDepth=$liDepth;
+				$this->listItemsProcess($section,$liChilds->item(0),++$liDepth);//li sub list process here
+				$liDepth=$prevDepth;
+			}
+		}
+	}
+	
+	//list item process
+	private function setQuery($queryNode,$write){
+		$queryCon=$queryDate=$queryAuthor='';
+		
+		$id=$queryNode->getAttribute('id');
+		$user=$queryNode->getAttribute('data-username');
+		$date=$queryNode->getAttribute('data-time');
+		
+		$queryTexts=$this->xpath->query("//*[@id='QRY_".$id."']");
+		if($queryTexts->length > 0){
+			foreach($queryTexts as $queryText){
+				$queryCon=$this->xpath->query(".//*[contains(@class,'queryText')]",$queryText);
+				$queryDate=$this->xpath->query(".//*[contains(@class,'queriedOn')]",$queryText);
+				$queryAuthor=$this->xpath->query(".//*[contains(@class,'queriedBy')]",$queryText);
+			}
+			$source=$queryNode->innerHTML;
+			$query=$queryCon->item(0)->innerHTML;  
+			$write->addComment($source,$query,$user,$date);
+			$write->addText(' ');
+		}
+	}
+	
+	private function write($target){
+		$result = '';
+		//set Writer formats   'ODText' => 'odt', 'RTF' => 'rtf', 'HTML' => 'html', 'PDF' => 'pdf'
+		$writers = array('Word2007' => 'docx');
+		foreach ($writers as $format => $extension) {
+			if (null !== $extension) {
+				$targetFile = $target.'.'.$extension;
+				$this->phpWord->save($targetFile, $format);
+				$result=true;
+			} else {
+				$result=false;
+			}
+		}
+		return $result;
+	}
+	 
+	private function DOMRemove(DOMNode $from) {
+		$sibling = $from->firstChild;
+		if ($sibling){
+			do {
+				$next = $sibling->nextSibling;
+				$from->parentNode->insertBefore($sibling, $from);
+			} while ($sibling = $next);
+		}
+		$from->parentNode->removeChild($from);
+	}
+	
+	private function TestHtmlTravel(){
+		 $branches=$this->xpath->query('//div[@id="content"]/*');
+		 foreach($branches as $branch){
+		 	/* $getAllNodes=$this->xpath->query('./node()',$branch);
+		 	foreach($getAllNodes as $node){  
+		 		echo $node->nodeType;
+		 		echo $this->dom->saveHTML($node);
+		 	} */
+		 	$section = $this->phpWord->addSection( array('paperSize' => 'Folio', 'marginLeft' => 600, 'marginRight' => 600, 'marginTop' => 600, 'marginBottom' => 600));
+		 	$this->showDOMNode($branch,$section);
+		 } 
+		 
+	}
+	
+	function showDOMNode(DOMNode $domNode,$section){
+		foreach ($domNode->childNodes as $node)
+		{
+			if($node->nodeType != '1'){
+				print $node->parentNode->nodeName;
+				print $node->nodeName.':'.$node->nodeValue."<br><br><br>";
+				
+			}
+			if($node->hasChildNodes()) {
+				$this->showDOMNode($node,$section);
+			}
+		}
+	}

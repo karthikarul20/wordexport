@@ -1,0 +1,727 @@
+/* START Front Matter Section Styling */
+#content{
+	padding-left: 10px;
+	padding-right: 10px;
+	//overflow: hidden;
+	outline: none;
+	//overflow-x: auto;
+	//margin-right: 10px !important;
+	right: 0px !important;
+}
+
+#content div.front{
+    border-bottom: 2px solid #000;
+}
+
+#content * h1, .column-resources * h1{
+    color: rgba(0, 0, 0, 0.74902);
+    font-size: 28px;
+    line-height: 200%;
+    text-align: left;
+    margin: 10px 0px 5px 0px;
+	font-weight: bold;
+}
+
+#content * h2, .column-resources * h2{
+    font-size: 26px;
+    line-height: 200%;
+    color: rgba(0, 0, 0, 0.74902);
+    text-align:left;
+	margin: 10px 0px 5px 0px;
+}
+#content * h3{
+    font-size: 22px;
+    line-height: 200%;
+    color: rgba(0, 0, 0, 0.74902);
+	margin: 10px 0px 5px 0px;
+	font-weight: bold;
+}
+
+#content * h4{
+    font-size: 18px;
+    line-height: 220%;
+    color: rgba(0, 0, 0, 0.74902);
+}
+#content * h5{
+    font-size: 16px;
+    line-height: 220%;
+    color: rgba(0, 0, 0, 0.74902);
+}
+#content * p{
+    font-size: 16px !important;
+    line-height: 250% !important;
+	padding: 0px;
+    color: rgba(0, 0, 0, 0.74902) !important;
+    margin-bottom: 10px;
+	text-align:justify;
+}
+.column-resources * p{
+    font-size: 14px;
+    line-height: 200%;
+	padding: 0px;
+	margin: 0px;
+    color: rgba(0, 0, 0, 0.74902);
+}
+#content * .label{
+    font-size: 14px;
+    line-height: 200%;
+    padding: 0px 0px 0px 2px;
+    color: #fff !important;
+    border-radius: 0px !important;
+    background: grey;
+}
+div[class*="DivNode"] * .label{
+    font-size: 14px;
+    line-height: 200%;
+    padding: 0px 0px 0px 2px;
+    color: #000 !important;
+    border-radius: 0px !important;
+}
+#content .jrnlTblBlock {
+	display: inline-block !important;
+	margin-right: 10px !important;
+	width: 100%;
+}
+
+#content * .jrnlFigCaption .label:after, #content * .jrnlTblCaption .label:after{
+    content: ' ' !important;
+}
+
+#content .jrnlAffRef{
+	display: super;
+}
+
+
+#content.author[jrnlname="ELIFE"] .front > *:not([data-editable]), #content.publisher[jrnlname="ELIFE"] .front > *:not([data-editable]), #content.publishercheck[jrnlname="ELIFE"] .front > *:not([data-editable]){
+	display: none;
+}
+
+/* START Cross reference citation styling */
+
+#content * .jrnlFigRef, #content * .jrnlTblRef, #content .jrnlVidRef {
+	background: repeat scroll 0 0 rgba(145, 187, 4, 0.15);
+    border-bottom: 1px solid rgba(145, 187, 4, 0.8);
+    border-top: 1px solid rgba(145, 187, 4, 0.8);
+    color: #495A11;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * .jrnlBoxRef, #content * .highlightBoxRef {
+    background: none repeat scroll 0 0 rgba(145, 187, 4, 0.15);
+    border-bottom: 1px solid rgba(145, 187, 4, 0.8);
+    border-top: 1px solid rgba(145, 187, 4, 0.8);
+    color: #495A11;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * .jrnlSchRef, #content * .jrnlSupplRef {
+    background: none repeat scroll 0 0 rgba(128, 0, 128, 0.1);
+    border-bottom: 1px solid rgba(128, 0, 128, 0.9);
+    border-top: 1px solid rgba(128, 0, 128, 0.9);
+    color: #800080;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * .jrnlEqnRef, #content * .highlightEqnRef {
+    background: none repeat scroll 0 0 rgba(147, 94, 26, 0.15);
+    border-bottom: 1px solid rgba(133, 80, 12, 0.93);
+    border-top: 1px solid rgba(133, 80, 12, 0.93);
+    color: #495A11;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * span.jrnlEqnLabel {
+    float: right;
+}
+
+#content * .jrnlURL {
+    background: none repeat scroll 0 0 rgba(145, 187, 4, 0.15);
+    border-bottom: 1px solid rgba(145, 187, 4, 0.8);
+    border-top: 1px solid rgba(145, 187, 4, 0.8);
+    color: blue;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * .jrnlBibRef, #content * .highlightBibRef{
+	background: rgba(11, 157, 217, 0.075);
+    color: #1B6685;
+    border-bottom: 1px solid rgba(11, 157, 217, 0.4);
+    border-top: 1px solid rgba(11, 157, 217, 0.4);
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * .jrnlUncitedBibRef{
+	background: repeat scroll 0 0 rgba(187, 29, 4, 0.15);
+    border-bottom: 1px solid rgba(187, 46, 4, 0.8);
+    border-top: 1px solid rgba(187, 46, 4, 0.8);
+    color: #5A1811;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+/* BEP UPDTE */
+#content * .jrnlFNRef, #content * .highlightFNRef {
+    background: none repeat scroll 0 0 rgba(255, 0, 255, 0.1) !important;
+    border-bottom: 1.5px solid #CC33CC;
+    border-top: 1.5px solid #CC33CC;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+
+#content * .jrnlENRef, #content * .highlightENRef {
+    background: none repeat scroll 0 0 rgba(255, 0, 255, 0.1) !important;
+    border-bottom: 1.5px solid #6600CC;
+    border-top: 1.5px solid #6600CC;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+#content * .jrnlFigRef:hover, #content * .jrnlTblRef:hover, #content * .jrnlBibRef, #content * .jrnlVidRef:hover{
+	cursor: pointer;
+}
+#content .jrnlFigRef:hover, #content .jrnlTblRef:hover, #content .jrnlVidRef:hover { background-color: rgba(145, 187, 4, 0.35); }
+#content .jrnlBibRef:hover { background-color: rgba(11, 157, 217, 0.30); }
+
+#content * .jrnlFigRef:hover,#content * .jrnlVidRef:hover, #content * .jrnlTblRef:hover, #content * .jrnlBibRef{
+	//-webkit-user-modify: read-write;
+    //-moz-user-modify: read-write;
+    //user-modify: read-write;
+}
+#content img{
+	max-width: 100%;
+}
+
+#content td p, #content th p{
+	color: inherit !important;
+}
+
+#content * .jrnlFigFoot, #content * .jrnlTblFoot, #content * .jrnlBoxFoot, #content * .jrnlSupplFoot, #content * .jrnlVidFoot, #content * .jrnlAudFoot, #content * .jrnlSrcFoot, #content * .jrnlChemFoot{
+    font-size: 12px !important;
+    font-style: normal;
+    line-height: 150%;
+    text-align: left;
+	margin: 0px;
+}
+
+.ins {
+    color: blue !important;
+    text-decoration: underline;
+}
+
+.del{
+    color: red !important;
+    text-decoration: line-through;
+}
+
+/*.del {
+	text-decoration: inherit !important;
+	color: inherit !important;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='1px' height='2px' viewBox='0 0 1 1' enable-background='new 0 0 1 1' fill='%23ff6600' xml:space='preserve'><rect width='1' height='2'/></svg>");
+	background-repeat: repeat-x;
+	background-position: center;
+}*/
+
+#content * ul, #content * ol{
+	margin-left: 20px;
+}
+
+#content table {
+	width: 100%;
+}
+
+#content .topHeader,#content .leftHeader, #content .dummyHeader {
+    border: 1px solid #BBB !important;
+}
+
+#content.typesetter * .jrnlArtTitle , #content.preediting * .jrnlArtTitle {
+    background-color: #afdfef;
+    color: #002040;
+}
+#content.typesetter * .jrnlArtSubTitle , #content.preediting * .jrnlArtSubTitle {
+    color: #134985 !important;
+}
+#content.typesetter * .jrnlRRH , #content.preediting * .jrnlRRH {
+    color: #6a5acd !important;
+}
+#content.typesetter * .jrnlLRH , #content.preediting * .jrnlLRH {
+    color: #708090 !important;
+}
+#content.typesetter * .jrnlAuthor , #content.preediting * .jrnlAuthor {
+    border: 1pt solid #388e8e !important;
+}
+#content.typesetter * span.jrnlGivenName , #content.preediting * span.jrnlGivenName {
+    color: #3852b0 !important;
+}
+#content.typesetter * span.jrnlSurName , #content.preediting * span.jrnlSurName {
+    color: orange !important;
+}
+#content.typesetter * span.jrnlSuffix , #content.preediting * span.jrnlSuffix {
+    color: #ea7500 !important;
+}
+#content.typesetter * span.jrnlDegree , #content.preediting * span.jrnlDegree {
+    color: #cc9900 !important;
+}
+#content.typesetter * span.jrnlRole , #content.preediting * span.jrnlRole {
+    color: #ff0066 !important;
+}
+#content.typesetter * span.jrnlCorrRef , #content.preediting * span.jrnlCorrRef {
+    color: blue !important;
+    font-size: 75%;
+    vertical-align: super;
+}
+#content.typesetter * span.jrnlAffRef , #content.preediting * span.jrnlAffRef {
+    color: blue !important;
+    font-size: 75%;
+    vertical-align: super;
+}
+#content.typesetter * span.jrnlAuthorNote , #content.preediting * span.jrnlAuthorNote {
+    color: blue !important;
+}
+#content.typesetter * .jrnlCorrAff , #content.preediting * .jrnlCorrAff {
+    color: #07a960 !important;
+}
+#content.typesetter * .jrnlAff , #content.preediting * .jrnlAff {
+    color: #ff0098 !important;
+}
+#content.typesetter * span.jrnlDepartment , #content.preediting * span.jrnlDepartment {
+    color: #567c7c !important;
+}
+#content.typesetter * span.jrnlInstitution , #content.preediting * span.jrnlInstitution {
+    color: #5c7c56 !important;
+}
+#content.typesetter * span.jrnlAddrLine , #content.preediting * span.jrnlAddrLine {
+    color: #47518b !important;
+}
+#content.typesetter * span.jrnlCity , #content.preediting * span.jrnlCity {
+    color: #3e9618 !important;
+}
+#content.typesetter * span.jrnlState , #content.preediting * span.jrnlState {
+    color: #388ce0 !important;
+}
+#content.typesetter * span.jrnlCountry , #content.preediting * span.jrnlCountry {
+    color: #956c1a !important;
+}
+#content.typesetter * span.jrnlCountry , #content.preediting * span.jrnlCountry {
+    color: #956c1a !important;
+}
+#content.typesetter * span.jrnlTelephone , #content.preediting * span.jrnlTelephone {
+    color: #9c3232 !important;
+}
+#content.typesetter * span.jrnlFax , #content.preediting * span.jrnlFax {
+    color: #d77373 !important;
+}
+#content.typesetter * span.jrnlEmail , #content.preediting * span.jrnlEmail {
+    color: #0000ff !important;
+}
+#content.typesetter * .jrnlAuthorFootNote, #content.preediting * .jrnlAuthorFootNote, #content.typesetter * .jrnlAuthorFN , #content.preediting * .jrnlAuthorFN {
+    color: #951a3b !important;
+}
+#content.typesetter * .jrnlAbsHead , #content.preediting * .jrnlAbsHead {
+    color: #011b37 !important;
+}
+#content.typesetter * .jrnlAbsTitle , #content.preediting * .jrnlAbsTitle {
+    color: #134985 !important;
+}
+#content.typesetter * .jrnlAbsPara , #content.preediting * .jrnlAbsPara {
+    color: #454545 !important;
+}
+#content.typesetter * .jrnlKeywordHead , #content.preediting * .jrnlKeywordHead {
+    color: #770d42 !important;
+}
+#content.typesetter * .jrnlKeywordPara , #content.preediting * .jrnlKeywordPara {
+    color: #ff6600 !important;
+}
+#content.typesetter * .jrnlKeyword , #content.preediting * .jrnlKeyword {
+    border: 1pt solid #388e8e !important;
+}
+#content.typesetter * .jrnlHead1, #content.preediting * .jrnlHead1{
+	color: #011b37 !important;
+}
+#content.typesetter * .jrnlHead2, #content.preediting * .jrnlHead2{
+	color: #134985 !important;
+}
+#content.typesetter * .jrnlHead3, #content.preediting * .jrnlHead3{
+    color: #045fbf !important;
+}
+#content.typesetter * .jrnlHead4, #content.preediting * .jrnlHead4{
+    color: #448edd !important;
+}
+#content.typesetter * .jrnlPara, #content.preediting * .jrnlPara, #content.typesetter * .jrnlDispFormula, #content.preediting * .jrnlDispFormula, #content.typesetter * .jrnlRefPara , #content.preediting * .jrnlRefPara {
+    color: #454545 !important;
+}
+#content.typesetter * .jrnlFigCaption, #content.preediting * .jrnlFigCaption, #content.typesetter * .jrnlFigFoot, #content.preediting * .jrnlFigFoot, #content.typesetter * .jrnlFigText, #content.preediting * .jrnlFigText{
+    color: #ff8000 !important;
+}
+#content.typesetter * .jrnlTblCaption, #content.preediting * .jrnlTblCaption, #content.typesetter * .jrnlTblFoot, #content.preediting * .jrnlTblFoot{
+    color: #008040 !important;
+}
+#content.typesetter * .jrnlBoxCaption, #content.preediting * .jrnlBoxCaption{
+    color: #0f8040 !important;
+}
+#content.typesetter * .jrnlSupplCaption, #content.preediting * .jrnlSupplCaption{
+    color: #0f0040 !important;
+}
+
+
+/* START of Reference Section CSS*/
+#content.typesetter * .jrnlRefHead , #content.preediting * .jrnlRefHead {
+    font-size: 26px;
+    color: #134985;
+    /*font-weight:bold;*/
+    text-align:left;
+    /*border-bottom:2pt solid #134985;*/
+}
+#content.typesetter * .jrnlRefSubHead, #content.preediting * .jrnlRefSubHead{
+    font-size: 24px !important;
+    color: #134985 !important;
+    text-align:left;
+    font-weight:bold;
+}
+#refListDiv p{
+    cursor: pointer;
+}
+
+#content.typesetter * .jrnlRefText, #content.preediting * .jrnlRefText{
+    color: red !important;
+    font-size: 16px !important;
+    font-weight: bolder !important;
+    line-height: 175% !important;
+    padding-left: 20px;
+}
+
+#content.typesetter * .jrnlRefAnnotation, #content.preediting * .jrnlRefAnnotation{
+    color: #5757FF !important;
+    font-size: 12px !important;
+    line-height: 150% !important;
+    padding: 0 20px 10px 20px;
+}
+#content.typesetter * .RefTextError, #content.preediting * .RefTextError{
+    background-color: red;
+    color: black !important;
+}
+#content.typesetter * .book, #content.preediting * .book{
+    color : #F5F5DC;
+}
+#content.typesetter * .conf-proc, #content.preediting * .conf-proc{
+    color : #00FFFF;
+}
+#content.typesetter * .journal, #content.preediting * .journal{
+    color : #98FB98;
+}
+#content.typesetter * .other, #content.preediting * .other{
+    color : #FFC0CB;
+}
+#content.typesetter * .patent, #content.preediting * .patent{
+    color : #87CEFA;
+}
+#content.typesetter * .web, #content.preediting * .web{
+    color : #DDA0DD;
+}
+#content.typesetter * .RefArticleTitle, #content.preediting * .RefArticleTitle{
+    color : #F99500;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefAuthor, #content.preediting * .RefAuthor, #content.typesetter * .jrnlAuthor, #content.preediting * .jrnlAuthor{
+    border: 1pt solid #285C5B !important;
+    color: #388E8E;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    padding: 0 1px;
+}
+#refList * .RefAuthor{
+    display: inline-block;
+}
+#content.typesetter * .RefBookTitle, #content.preediting * .RefBookTitle{
+    border-bottom: 1pt solid #000000;
+    color : #065658;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefTransTitle, #content.preediting * .RefTransTitle{
+    border-top: 1pt solid #000000;
+    border-bottom: 1pt solid #000000;
+    color : #0A8E92;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefBookSeries, #content.preediting * .RefBookSeries{
+    border-bottom: 1pt solid #0000FF;
+    border-top: 1pt solid #0000FF;
+    color: #FFD700;
+    font-size: 14px !important;
+}
+#content.typesetter * .RefChapterTitle, #content.preediting * .RefChapterTitle{
+    color : #22AD73;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefSoftName, #content.preediting * .RefSoftName{
+    color : #2196F3;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefSoftVer, #content.preediting * .RefSoftVer{
+    color : #4CAF50;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefCollaboration, #content.preediting * .RefCollaboration{
+    color : #4682B4;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefComments, #content.preediting * .RefComments{
+    color : #FF00FF;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefInPress, #content.preediting * .RefInPress{
+    color : #B00058;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefConfDate, #content.preediting * .RefConfDate{
+    color : #808080;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefConfLoc, #content.preediting * .RefConfLoc{
+    color : #000080;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefConfName, #content.preediting * .RefConfName, #content.typesetter * .RefThesis, #content.preediting * .RefThesis{
+    color : #800000;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefConfSponsor, #content.preediting * .RefConfSponsor{
+    color : #8B4513;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefConfTitle, #content.preediting * .RefConfTitle{
+    color : #BDB76B;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefDay, #content.preediting * .RefDay{
+    color : #4B0082;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefDiss, #content.preediting * .RefDiss{
+    color : #8A2BE2;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefDissLoc, #content.preediting * .RefDissLoc{
+    color : #7CFC00;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefDissUniv, #content.preediting * .RefDissUniv{
+    color : #3CB371;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefDOI, #content.preediting * .RefDOI{
+    color : #800080;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefPMID, #content.preediting * .RefPMID, #content.typesetter * .RefPMCID, #content.preediting * .RefPMCID{
+    color : #008080;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefEdition, #content.preediting * .RefEdition{
+    color : #008080;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefEditor, #content.preediting * .RefEditor{
+    border: 1pt solid #510101 !important;
+    color: #801C1C;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefComment, #content.preediting * .RefComment{
+    color: #636465;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefEtal, #content.preediting * .RefEtal{
+    color : #D2691E;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefFPage, #content.preediting * .RefFPage{
+    color : #FF6347;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefELocation , #content.preediting * .RefELocation{
+    color : #FF6347;
+    border-bottom : 1px solid #D2691E;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefGivenName, #content.preediting * .RefGivenName, #content.typesetter * .jrnlGivenName, #content.preediting * .jrnlGivenName{
+    color : orange;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefISBN, #content.preediting * .RefISBN{
+    color : #00FF00;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefIssue, #content.preediting * .RefIssue{
+    color : rgba(211, 6, 210, 0.68);
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefJournalTitle, #content.preediting * .RefJournalTitle{
+    color : #808000;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefLAD, #content.preediting * .RefLAD{
+    color : #556B2F;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefLPage, #content.preediting * .RefLPage{
+    color : #008000;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefMonth, #content.preediting * .RefMonth{
+    color : #2F4F4F;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefPublisherLoc, #content.preediting * .RefPublisherLoc{
+    color : #CD853F;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefPublisherName, #content.preediting * .RefPublisherName{
+    color : #FF1493;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefSlNo, #content.preediting * .RefSlNo{
+    color : #D55B6F;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    /*float: left;
+    margin-left: -20px;*/
+}
+#content.typesetter * .RefSuffix, #content.preediting * .RefSuffix{
+    color : #8B5F65;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefSurName, #content.preediting * .RefSurName, #content.typesetter * .jrnlSurName, #content.preediting * .jrnlSurName{
+    color : #3852B0;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefVolume, #content.preediting * .RefVolume{
+    color : #8B008B;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefWebSite, #content.preediting * .RefWebSite{
+    color : #0000FF;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefPatent, #content.preediting * .RefPatent{
+    color : #CD326C;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefYear, #content.preediting * .RefYear{
+    color : #DC143C;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .RefUrl, #content.preediting * .RefUrl{
+    color : blue;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+#content.typesetter * .jrnlUntagged , #content.preediting * .jrnlUntagged {
+    color: red !important;
+}
+#content.typesetter * p , #content.preediting * p {
+    color: #FF0000;
+    font-size: 14px;
+    line-height: 250% !important;
+    text-align: justify;
+}
+/* END of Reference Section CSS*/
+
+#content .jrnlCheckFont{
+	border: 1px solid red;
+	background-color: aqua;
+}
+
+/*
+* http://jsfiddle.net/leaverou/vrenp/
+* 
+* START - MIMIC CURSOR BLINK 
+*/
+@-webkit-keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+@-moz-keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+@keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+@-ms-keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+@-o-keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+span[data-mce-type="bookmark"] {
+    /*width:1px;
+    border-left:1px solid black;
+    -webkit-animation: 1s blink step-end infinite;
+    -moz-animation: 1s blink step-end infinite;*/
+}
+/* END - MIMIC CURSOR BLINK */
+
+#content.author * .ins{
+	color: inherit !important;
+	text-decoration: none;
+}
+
+.partLabel {
+	font-weight: bold;
+	color: #ff8000 !important;
+	font-size: 18px;
+}
+
+#content .jrnlFigBlock p:not(:first-child) {
+    color: inherit !important;
+}
+
+.jrnlSmallCaps {
+	font-variant: small-caps;
+}

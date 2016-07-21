@@ -1,0 +1,56 @@
+//set style for specific Element
+		 		if($eachNode->nodeType=='1' && preg_match('/Title|Head/',$eachNode->getAttribute('class'))){
+		 			$style="hStyle";
+		 		}else{
+		 			$style="pStyle";
+		 		} 
+		 		
+		 		$textrun = $section->createTextRun($style);
+		 		//process divided to parts here 
+	 			$elemType=$eachNode->nodeType;
+	 			if(preg_match('/ol|ul/',$eachNode->nodeName)){    
+	 				//$section->listItemCounterReset('multilevel', 1);
+	 				$this->listItemsProcess($section,$eachNode,0);//All List item Process
+	 			}elseif($elemType=='1' && preg_match('/jrnlRefText/',$eachNode->getAttribute('class'))){ 
+	 				//Bookmarked each reference
+	 				$rID=$eachNode->getAttribute('id'); 
+	 				$textrun->addBookmark($rID);
+	 				//$textrun->addText(htmlspecialchars($eachNode->nodeValue),$style);
+	 				$this->addTextWithStyle($textrun,'textrun',$eachNode,$style);
+	 			}else{
+	 				//element will be styled here
+	 				//$collectNodes=$this->xpath->query('./*',$eachNode);
+	 				$nodeChildes=$eachNode->childNodes;
+	 				if($collectNodes->length>0){
+	 					foreach($collectNodes as $node){ 
+	 						/* if($node->nodeType=='1' && preg_match('/jrnl(\w+)Ref/',$node->getAttribute('class'))){
+	 							$linkIsInternal = true;
+	 							$refId=trim($node->getAttribute('data-citation-string')); 
+	 							$checkRefId=$this->xpath->query('//*[@id="'.$refId.'"]');
+	 							if($checkRefId->length>0){
+	 								//set Link Here
+	 								$textrun->addLink($refId, htmlspecialchars($node->nodeValue), null, null, $linkIsInternal);
+	 							} 
+	 						}elseif($node->nodeName=="table"){   
+			 					$this->tableProcess($section,$eachNode); 
+	 						}elseif($node->nodeName=="img"){   
+			 					$src =$node->getAttribute('src');
+		 						$imgStyle=array('width' => '500','wrappingStyle' => 'behind');
+		 						//$section->addImage($src,$imgStyle);
+	 						}elseif($node->nodeType=="1" && preg_match('/Caption/',$node->getAttribute('class'))){  
+	 							if($node->hasAttribute('id')){
+		 							$captionID=trim($node->getAttribute('id'));
+		 							$textrun->addBookmark($captionID);
+	 							}
+	 							//$textrun->addText($node->nodeValue,$style);
+	 							$this->addTextWithStyle($textrun,'textrun',$node,$style);
+	 						}else{
+	 							//$textrun->addText(htmlspecialchars( $node->nodeValue),$style);
+	 							$this->addTextWithStyle($textrun,'textrun',$node,$style);
+	 						} */
+	 					} 
+	 				}else{
+	 					//$section->addText(htmlspecialchars($eachNode->nodeValue),$style);
+	 					//$this->addTextWithStyle($section,'section',$eachNode,$style);
+	 				}
+	 			} 
