@@ -112,7 +112,7 @@ foreach ( $results as $resultNode ) {
 
 
 $exportFile=  __DIR__ ."/word/{$name}.docx";
-
+$exportFile=  "{$name}.docx";
 // print_r($section);
 
 
