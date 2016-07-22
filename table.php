@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ini_set ( 'max_execution_time', 0 );
-$name='list';
+$name='table';
 $file = __DIR__ . "/html/{$name}.html";
 $content = file_get_contents ( $file );//get content
 
@@ -30,7 +30,6 @@ $dom = new DOMDocument( '1.0', 'UTF-8' );
 $dom->registerNodeClass( 'DOMElement', 'JSLikeHTMLElement' );
 $htmlContent = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 $dom->loadHTML( $htmlContent );
-
 // Restore error level
 // libxml_use_internal_errors($internalErrors);
 
@@ -48,52 +47,20 @@ $section->addText(
 );
 
 
-function processLi($child, $section){
-		
-    if (strtolower ( $child->nodeName ) == 'ol' || strtolower ( $child->nodeName ) == 'ul')
-    {
-        $section->addText('list - '.$child->nodeName);
-        print_r('*');
-        echo "\r\n";
-        if($child->hasChildNodes()) {
-            $lis = $child->childNodes;
-            foreach ( $lis as $li ) {
-                echo "\r\n";
-                echo "\t";
-                print_r($li->nodeName);
-                
-                if (strtolower ( $li->firstChild->nodeName ) == 'ol' || strtolower ( $li->firstChild->nodeName ) == 'ul')
-                {
-                    echo "\r\n";
-                    echo 'Going to be recursive';
-                    
-                    foreach ($li->childNodes  as $liChild  ) {
-                        echo "\t";
-                        print_r($li->firstChild->nodeName);
-                        processLi($liChild, $section);
-                    }
-                }
-                else if (strtolower ( $li->nodeName ) == 'li')
-                {
-                    $section->addListItem($li->nodeName.' - '.$li->textContent);
-                    echo ' --- ';
-                    print_r($li->textContent); 
-                }                            
-            }
-        }
-        
-    } 
-}
 
+print_r($dom);
 
 $xpath = new DOMXPath( $dom );
 $xpath->registerNamespace( 'php', 'http://php.net/xpath' );
 $xpath->registerPhpFunctions( array( 'preg_match', 'preg_split','preg_replace', 'sizeof', 'str_word_count' ) );
 
-$results = $xpath->query ( '//div[contains(@class,"body")]' );
+$results = $xpath->query ( '//div' );
 echo 'before creating......';
+print_r($results);
+
 
 foreach ( $results as $resultNode ) {
+	print_r($resultNode);
     if (strtolower ( $resultNode->nodeName ) == 'div') {
         
         if($resultNode->hasChildNodes()) {
@@ -101,8 +68,8 @@ foreach ( $results as $resultNode ) {
             foreach ( $children as $child ) {
                 // create recursive for html element childs
                 echo "\r\n";
-                print_r($child->nodeName);
-                processLi($child, $section);
+                print_r($child->childNodes);
+              //  processLi($child, $section);
                
             }
         } 
