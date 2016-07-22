@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/JSLikeHTMLElement.php';
-require_once __DIR__ . '/includes/PHPWord/src/PhpWord/Autoloader.php'; 
+require_once __DIR__ . '/includes/PHPWord-master/src/PhpWord/Autoloader.php'; 
 /**
  * Header file
  */
@@ -48,19 +48,17 @@ $section->addText(
 
 
 
-print_r($dom);
 
 $xpath = new DOMXPath( $dom );
 $xpath->registerNamespace( 'php', 'http://php.net/xpath' );
 $xpath->registerPhpFunctions( array( 'preg_match', 'preg_split','preg_replace', 'sizeof', 'str_word_count' ) );
 
-$results = $xpath->query ( '//div' );
+$results = $xpath->query ( '//div[contains(@class,"body")]' );
 echo 'before creating......';
-print_r($results);
 
 
 foreach ( $results as $resultNode ) {
-	print_r($resultNode);
+	// print_r($resultNode);
     if (strtolower ( $resultNode->nodeName ) == 'div') {
         
         if($resultNode->hasChildNodes()) {
@@ -68,7 +66,25 @@ foreach ( $results as $resultNode ) {
             foreach ( $children as $child ) {
                 // create recursive for html element childs
                 echo "\r\n";
-                print_r($child->childNodes);
+                
+                if (strtolower ( $child->nodeName ) == 'table') {
+                    //table
+                    $trs = $child->childNodes;
+                    print_r($trs);
+                    foreach ( $trs as $tr ) {
+                        echo '******';
+                        if (strtolower ($tr->nodeName ) == 'tr') {
+                            //row
+                            $tds=$tr->childNodes;
+                            foreach ( $tds as $td ) {
+                                //cell
+                                print_r($td->textContent);
+                            }
+                        }
+                    }
+                }
+
+                
               //  processLi($child, $section);
                
             }
