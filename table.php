@@ -43,9 +43,8 @@ $phpWord = new \PhpOffice\PhpWord\PhpWord();
 $section = $phpWord->addSection();
 // Adding Text element to the Section having font styled by default...
 $section->addText(
-    htmlspecialchars('Test Sample List')
+    htmlspecialchars('Test Sample Tables')
 );
-
 
 
 
@@ -69,16 +68,19 @@ foreach ( $results as $resultNode ) {
                 
                 if (strtolower ( $child->nodeName ) == 'table') {
                     //table
+                    $table = $section->addTable();
                     $trs = $child->childNodes;
                     print_r($trs);
                     foreach ( $trs as $tr ) {
                         echo '******';
                         if (strtolower ($tr->nodeName ) == 'tr') {
                             //row
+                            $table->addRow();
                             $tds=$tr->childNodes;
                             foreach ( $tds as $td ) {
                                 //cell
                                 print_r($td->textContent);
+                                $table->addCell(1750)->addText($td->textContent);
                             }
                         }
                     }
@@ -95,14 +97,7 @@ foreach ( $results as $resultNode ) {
 
 
 $exportFile=  __DIR__ ."/{$name}.docx";
-// $exportFile=  "/{$name}.docx";
-// print_r($section);
 
-
-
-
-// Saving the document as OOXML file...
-// $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 $phpWord->save($exportFile, 'Word2007');
 
 
