@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/JSLikeHTMLElement.php';
-require_once __DIR__ . '/includes/PHPWord-master/src/PhpWord/Autoloader.php'; 
+require_once __DIR__ . '/includes/PHPWord/src/PhpWord/Autoloader.php'; 
 /**
  * Header file
  */
