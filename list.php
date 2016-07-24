@@ -34,9 +34,9 @@ $dom->loadHTML( $htmlContent );
 // Restore error level
 // libxml_use_internal_errors($internalErrors);
 
-
 // Creating the new document...
-$phpWord = new \PhpOffice\PhpWord\PhpWord();
+$phpWord = new \PhpOffice\PhpWord\PhpWord ();
+$predefinedMultilevel = array('listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_NUMBER_NESTED);
 
 /* Note: any element you append to a document must reside inside of a Section. */
 
@@ -61,23 +61,34 @@ function processLi($child, $section, $depth=0){
                 echo "\t";                
 
                 if($li->hasChildNodes()) {
-                    print_r($li->firstChild->nodeName);
-                    if (strtolower ( $li->firstChild->nodeName ) == 'ol' || strtolower ( $li->firstChild->nodeName ) == 'ul')
-                    {
-                        echo "\r\n";
-                        echo 'Going to be recursive';
-                        
-                        foreach ($li->childNodes  as $liChild  ) {
-                            echo "\t";
-                            print_r($liChild->nodeName);
-                            processLi($liChild, $section, $depth+1);
-                        }
-                    }
-                    else if (strtolower ( $li->nodeName ) == 'li')
-                    {
-                        $section->addListItem($li->textContent, $depth);
-                        echo $depth.' --- '.$li->textContent;
-                    } 
+                	foreach ($li->childNodes  as $liChild  ) {
+                		echo "\t";
+                		print_r($liChild->nodeName);
+                		if (strtolower ( $liChild->nodeName ) == 'ol' || strtolower ( $liChild->nodeName ) == 'ul')
+                		{
+                			echo "\r\n";
+                			echo 'Going to be recursive';
+                			processLi($liChild, $section, $depth+1);
+                		
+                		
+                		}
+                		else if (strtolower ( $liChild->nodeName ) == '#text')
+                		{
+                			if(strtolower ( $child->nodeName ) == 'ol' ){
+                				
+                				$section->addListItem($liChild->textContent, $depth, $predefinedMultilevel);
+                				
+                			}else if(strtolower ( $child->nodeName ) == 'ul'){
+                				
+                				$section->addListItem($liChild->textContent, $depth);
+                			}
+                			
+                			echo $depth.' --- '.$liChild->textContent;
+                		}
+                		
+                	}
+                    
+                    
                 
                 }    
                 else {
