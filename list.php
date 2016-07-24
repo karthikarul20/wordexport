@@ -48,37 +48,41 @@ $section->addText(
 );
 
 
-function processLi($child, $section){
+function processLi($child, $section, $depth=0){
 		
     if (strtolower ( $child->nodeName ) == 'ol' || strtolower ( $child->nodeName ) == 'ul')
     {
-        $section->addText('list - '.$child->nodeName);
-        print_r('*');
+        print_r($depth.' * ');
         echo "\r\n";
         if($child->hasChildNodes()) {
             $lis = $child->childNodes;
             foreach ( $lis as $li ) {
                 echo "\r\n";
-                echo "\t";
-                print_r($li->nodeName);
-                
-                if (strtolower ( $li->firstChild->nodeName ) == 'ol' || strtolower ( $li->firstChild->nodeName ) == 'ul')
-                {
-                    echo "\r\n";
-                    echo 'Going to be recursive';
-                    
-                    foreach ($li->childNodes  as $liChild  ) {
-                        echo "\t";
-                        print_r($li->firstChild->nodeName);
-                        processLi($liChild, $section);
+                echo "\t";                
+
+                if($li->hasChildNodes()) {
+                    print_r($li->firstChild->nodeName);
+                    if (strtolower ( $li->firstChild->nodeName ) == 'ol' || strtolower ( $li->firstChild->nodeName ) == 'ul')
+                    {
+                        echo "\r\n";
+                        echo 'Going to be recursive';
+                        
+                        foreach ($li->childNodes  as $liChild  ) {
+                            echo "\t";
+                            print_r($liChild->nodeName);
+                            processLi($liChild, $section, $depth+1);
+                        }
                     }
-                }
-                else if (strtolower ( $li->nodeName ) == 'li')
-                {
-                    $section->addListItem($li->nodeName.' - '.$li->textContent);
-                    echo ' --- ';
-                    print_r($li->textContent); 
-                }                            
+                    else if (strtolower ( $li->nodeName ) == 'li')
+                    {
+                        $section->addListItem($li->textContent, $depth);
+                        echo $depth.' --- '.$li->textContent;
+                    } 
+                
+                }    
+                else {
+                    echo 'else';
+                }                       
             }
         }
         
