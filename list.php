@@ -36,7 +36,7 @@ $dom->loadHTML( $htmlContent );
 
 // Creating the new document...
 $phpWord = new \PhpOffice\PhpWord\PhpWord ();
-$predefinedMultilevel = array('listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_NUMBER_NESTED);
+
 
 /* Note: any element you append to a document must reside inside of a Section. */
 
@@ -49,6 +49,7 @@ $section->addText(
 
 
 function processLi($child, $section, $depth=0){
+    $predefinedMultilevel = array('listType' => \PhpOffice\PhpWord\Style\ListItem::TYPE_NUMBER_NESTED);
 		
     if (strtolower ( $child->nodeName ) == 'ol' || strtolower ( $child->nodeName ) == 'ul')
     {
@@ -76,7 +77,7 @@ function processLi($child, $section, $depth=0){
                 		{
                 			if(strtolower ( $child->nodeName ) == 'ol' ){
                 				
-                				$section->addListItem($liChild->textContent, $depth, $predefinedMultilevel);
+                				$section->addListItem($liChild->textContent, $depth, null, $predefinedMultilevel);
                 				
                 			}else if(strtolower ( $child->nodeName ) == 'ul'){
                 				
